@@ -5,6 +5,7 @@ import { useLanguage } from "@/lib/language-context";
 import { useRef } from "react";
 import { Apple, Play } from "lucide-react";
 import Image from "next/image";
+import { FaApple, FaGooglePlay } from "react-icons/fa";
 
 // Subtle Medical Cross Icon
 function MedicalCross({ className }: { className?: string }) {
@@ -47,30 +48,34 @@ function HeartPulse({ className }: { className?: string }) {
   );
 }
 
-// Animated Heartbeat Line
+// Lighter heartbeat line
 function HeartbeatLine({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 300 60"
-      className={`absolute opacity-[0.16] ${className}`}
+      className={`absolute opacity-[0.4] ${className}`}
       preserveAspectRatio="none"
     >
       <motion.path
         d="M0 30 L60 30 L70 30 L80 15 L90 45 L100 10 L110 50 L120 30 L130 30 L300 30"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.6"
         className="text-[#1B8AA8]"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
+        initial={{ pathLength: 0, opacity: 0.2 }}
+        animate={{ pathLength: 1, opacity: [0.35, 1, 0.35] }}
         transition={{
           pathLength: {
-            duration: 3,
+            duration: 2.2,
             repeat: Infinity,
-            repeatDelay: 2,
+            repeatDelay: 2.2,
             ease: "easeInOut",
           },
-          opacity: { duration: 0.5 },
+          opacity: {
+            duration: 2.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          },
         }}
       />
     </svg>
@@ -98,16 +103,15 @@ function HealthParticle({
         top: y,
         width: size,
         height: size,
-background:
-  "radial-gradient(circle, rgba(27, 138, 168, 0.35) 0%, rgba(111, 209, 230, 0.14) 65%, transparent 100%)",
-filter: "blur(0.4px)",
-boxShadow: "0 0 18px rgba(47, 166, 196, 0.22)",
+        background:
+          "radial-gradient(circle, rgba(27, 138, 168, 0.42) 0%, rgba(111, 209, 230, 0.18) 60%, transparent 100%)",
+        boxShadow: "0 0 14px rgba(47, 166, 196, 0.18)",
       }}
       animate={{
-        y: [0, -30, 0],
-        x: [0, 15, 0],
-        scale: [1, 1.2, 1],
-        opacity: [0.4, 0.7, 0.4],
+        y: [0, -16, 0],
+        x: [0, 6, 0],
+        opacity: [0.45, 0.85, 0.45],
+        scale: [1, 1.12, 1],
       }}
       transition={{
         duration,
@@ -115,29 +119,6 @@ boxShadow: "0 0 18px rgba(47, 166, 196, 0.22)",
         repeat: Infinity,
         ease: "easeInOut",
       }}
-    />
-  );
-}
-
-function LightBeam({
-  className,
-  delay = 0,
-}: {
-  className?: string;
-  delay?: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: "-100%" }}
-      animate={{ opacity: [0, 0.85, 0], x: "200%" }}
-      transition={{
-        duration: 4,
-        delay,
-        repeat: Infinity,
-        repeatDelay: 8,
-        ease: "easeInOut",
-      }}
-      className={`absolute h-[2px] bg-gradient-to-r from-transparent via-[#1B8AA8]/70 to-transparent blur-[0.3px] ${className}`}
     />
   );
 }
@@ -174,17 +155,16 @@ function PhoneMockup({
               src={src}
               alt={alt}
               fill
-              priority
               className={`object-cover object-top ${imageClassName}`}
             />
           </div>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0E5F73]/[0.04] via-transparent to-white/[0.02] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0E5F73]/[0.03] via-transparent to-white/[0.02] pointer-events-none" />
         </div>
       </div>
 
       <div
-        className={`absolute -inset-4 rounded-[2.8rem] blur-2xl -z-10 ${glowClassName}`}
+        className={`absolute -inset-3 rounded-[2.8rem] blur-xl -z-10 ${glowClassName}`}
       />
     </div>
   );
@@ -199,14 +179,13 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -55]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 40]);
 
-  // Desktop only fade/scale
   const desktopOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const desktopScale = useTransform(scrollYProgress, [0, 0.55], [1, 0.94]);
+  const desktopScale = useTransform(scrollYProgress, [0, 0.55], [1, 0.97]);
 
   return (
     <section
@@ -215,80 +194,65 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
       style={{ direction: dir }}
     >
-      {/* Layered Background System */}
+      {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[#F8FCFD] via-white to-[#F0F9FB]" />
         <div
           className="absolute inset-0 opacity-60"
           style={{
             background: `
-              radial-gradient(ellipse 80% 50% at 20% 40%, rgba(27, 138, 168, 0.08) 0%, transparent 50%),
-              radial-gradient(ellipse 60% 60% at 80% 20%, rgba(47, 166, 196, 0.06) 0%, transparent 50%),
-              radial-gradient(ellipse 50% 80% at 60% 80%, rgba(111, 209, 230, 0.08) 0%, transparent 50%)
+              radial-gradient(ellipse 80% 50% at 20% 40%, rgba(27, 138, 168, 0.07) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 60% at 80% 20%, rgba(47, 166, 196, 0.05) 0%, transparent 50%),
+              radial-gradient(ellipse 50% 80% at 60% 80%, rgba(111, 209, 230, 0.06) 0%, transparent 50%)
             `,
           }}
         />
       </div>
 
-      {/* Cinematic Glows */}
+      {/* Softer glows */}
       <motion.div
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none"
       >
         <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.7, 0.5] }}
+          animate={{ opacity: [0.22, 0.35, 0.22] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] left-[15%] w-[600px] h-[600px] bg-gradient-radial from-[#1B8AA8]/18 via-[#1B8AA8]/8 to-transparent rounded-full blur-3xl"
+          className="absolute top-[12%] left-[15%] w-[360px] h-[360px] bg-gradient-radial from-[#1B8AA8]/12 via-[#1B8AA8]/5 to-transparent rounded-full blur-2xl"
         />
         <motion.div
-          animate={{ scale: [1.1, 1, 1.1], opacity: [0.4, 0.6, 0.4] }}
+          animate={{ opacity: [0.18, 0.3, 0.18] }}
           transition={{
             duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
             delay: 1,
           }}
-          className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] bg-gradient-radial from-[#2FA6C4]/16 via-[#2FA6C4]/7 to-transparent rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-          className="absolute top-[30%] right-[25%] w-[400px] h-[400px] bg-gradient-radial from-[#6FD1E6]/18 via-[#6FD1E6]/8 to-transparent rounded-full blur-3xl"
+          className="absolute bottom-[12%] right-[10%] w-[320px] h-[320px] bg-gradient-radial from-[#2FA6C4]/12 via-[#2FA6C4]/5 to-transparent rounded-full blur-2xl"
         />
       </motion.div>
 
       {/* Light Beams */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <LightBeam className="top-[20%] w-[60%]" delay={0} />
-        <LightBeam className="top-[60%] w-[80%]" delay={3} />
-        <LightBeam className="top-[80%] w-[40%]" delay={6} />
-      </div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block"></div>
 
       {/* Medical Background Elements */}
       <motion.div
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none hidden md:block"
       >
-        <HeartbeatLine className="top-[12%] left-[3%] w-80 rotate-[-3deg]" />
-        <HeartbeatLine className="top-[65%] right-[5%] w-72 rotate-[2deg]" />
-        <HeartbeatLine className="top-[35%] left-[55%] w-64 rotate-[-1deg] opacity-[0.025]" />
+        <HeartbeatLine className="top-[12%] left-[3%] w-72 rotate-[-3deg]" />
+        <HeartbeatLine className="top-[75%] right-[5%] w-64 rotate-[2deg]" />
       </motion.div>
 
       <motion.div
-        animate={{ y: [0, -12, 0], rotate: [0, 3, 0] }}
+        animate={{ y: [0, -8, 0], rotate: [0, 3, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-[18%] left-[6%] hidden sm:block"
       >
-        <MedicalCross className="w-4 h-4 sm:w-6 sm:h-6 text-[#1B8AA8]/[0.14] sm:text-[#1B8AA8]/[0.16]" />
+        <MedicalCross className="w-4 h-4 sm:w-5 sm:h-5 text-[#1B8AA8]/[0.14]" />
       </motion.div>
 
       <motion.div
-        animate={{ y: [0, -10, 0], rotate: [0, -5, 0] }}
+        animate={{ y: [0, -8, 0], rotate: [0, -4, 0] }}
         transition={{
           duration: 12,
           repeat: Infinity,
@@ -297,111 +261,65 @@ export function HeroSection() {
         }}
         className="absolute top-[55%] right-[8%] hidden md:block"
       >
-        <MedicalCross className="w-7 h-7 text-[#2FA6C4]/[0.14]" />
+        <MedicalCross className="w-6 h-6 text-[#2FA6C4]/[0.12]" />
       </motion.div>
 
       <motion.div
-        animate={{ y: [0, -8, 0], rotate: [0, 6, 0] }}
+        animate={{ y: [0, -6, 0], rotate: [0, 5, 0] }}
         transition={{
           duration: 11,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 3,
         }}
-        className="absolute bottom-[22%] left-[12%] hidden sm:block"
+        className="absolute bottom-[22%] left-[12%] hidden lg:block"
       >
-        <MedicalCross className="w-5 h-5 text-[#6FD1E6]/[0.18]" />
+        <MedicalCross className="w-5 h-5 text-[#6FD1E6]/[0.14]" />
       </motion.div>
 
       <motion.div
-        animate={{ y: [0, -18, 0], x: [0, 4, 0] }}
+        animate={{ y: [0, -10, 0], x: [0, 3, 0] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-[25%] right-[5%] hidden lg:block"
       >
-        <DNAHelix className="w-9 h-16 text-[#1B8AA8]/[0.14]" />
+        <DNAHelix className="w-8 h-14 text-[#1B8AA8]/[0.1]" />
       </motion.div>
 
       <motion.div
-        animate={{ y: [0, -15, 0], x: [0, -6, 0] }}
-        transition={{
-          duration: 16,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 4,
-        }}
-        className="absolute bottom-[30%] left-[4%] hidden lg:block"
-      >
-        <DNAHelix className="w-7 h-14 text-[#2FA6C4]/[0.12]" />
-      </motion.div>
-
-      <motion.div
-        animate={{ y: [0, -10, 0], scale: [1, 1.08, 1] }}
+        animate={{ y: [0, -7, 0], scale: [1, 1.05, 1] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-[42%] left-[3%] hidden sm:block"
       >
-        <HeartPulse className="w-4 h-4 sm:w-5 sm:h-5 text-[#1B8AA8]/[0.12] sm:text-[#1B8AA8]/[0.14]" />
+        <HeartPulse className="w-4 h-4 sm:w-5 sm:h-5 text-[#1B8AA8]/[0.12]" />
       </motion.div>
 
-      <motion.div
-        animate={{ y: [0, -8, 0], scale: [1, 1.1, 1] }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-        className="absolute top-[20%] right-[15%] hidden sm:block"
-      >
-        <HeartPulse className="w-4 h-4 text-[#6FD1E6]/[0.16]" />
-      </motion.div>
-
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <HealthParticle delay={0} duration={9} x="8%" y="22%" size={6} />
         <HealthParticle delay={1.5} duration={11} x="88%" y="32%" size={5} />
-        <HealthParticle delay={2.5} duration={10} x="12%" y="62%" size={8} />
+        <HealthParticle delay={2.5} duration={10} x="12%" y="62%" size={7} />
         <HealthParticle delay={0.8} duration={12} x="92%" y="52%" size={5} />
-        <HealthParticle delay={2} duration={13} x="4%" y="78%" size={4} />
-        <HealthParticle delay={3.5} duration={11} x="78%" y="18%" size={6} />
-        <HealthParticle delay={3} duration={10} x="22%" y="42%" size={5} />
-        <HealthParticle delay={4.5} duration={14} x="82%" y="72%" size={7} />
       </div>
 
       <motion.div
         style={{ y: y3 }}
         animate={{ rotate: [0, 360] }}
-        transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[15%] left-[10%] w-28 h-28 border border-[#1B8AA8]/[0.03] rounded-full hidden lg:block"
+        transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+        className="absolute top-[15%] left-[10%] w-24 h-24 border border-[#1B8AA8]/[0.03] rounded-full hidden lg:block"
       />
       <motion.div
         style={{ y: y2 }}
         animate={{ rotate: [360, 0] }}
-        transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-[18%] right-[8%] w-36 h-36 border border-[#2FA6C4]/[0.025] rounded-full hidden lg:block"
+        transition={{ duration: 110, repeat: Infinity, ease: "linear" }}
+        className="absolute bottom-[18%] right-[8%] w-32 h-32 border border-[#2FA6C4]/[0.02] rounded-full hidden lg:block"
       />
 
-      <motion.div
-        animate={{ y: [0, -6, 0], rotate: [12, 18, 12] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[72%] left-[22%] w-5 h-10 bg-gradient-to-b from-[#1B8AA8]/[0.03] to-[#2FA6C4]/[0.03] rounded-full blur-[0.5px] hidden md:block"
-      />
-      <motion.div
-        animate={{ y: [0, -8, 0], rotate: [-18, -12, -18] }}
-        transition={{
-          duration: 11,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 3,
-        }}
-        className="absolute top-[12%] right-[28%] w-4 h-8 bg-gradient-to-b from-[#6FD1E6]/[0.04] to-[#1B8AA8]/[0.04] rounded-full blur-[0.5px] hidden md:block"
-      />
-
-      {/* DESKTOP WRAPPER ONLY */}
+      {/* DESKTOP */}
       <motion.div
         style={{ opacity: desktopOpacity, scale: desktopScale }}
         className="relative z-10 hidden md:block max-w-7xl mx-auto px-6 py-16 md:py-24"
       >
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Text Content */}
+          {/* Text */}
           <motion.div
             initial={{ opacity: 0, x: dir === "rtl" ? 40 : -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -447,10 +365,15 @@ export function HeroSection() {
               transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="group relative px-7 py-4 bg-gradient-to-r from-[#1B8AA8] to-[#2FA6C4] text-white rounded-2xl font-semibold flex items-center justify-center gap-3 overflow-hidden shadow-xl shadow-[#1B8AA8]/25 hover:shadow-2xl hover:shadow-[#1B8AA8]/30 transition-shadow duration-500"
+              {/* App Store */}
+              <motion.a
+                href="https://apps.apple.com/app/seha-plus/id6748379745"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -3, scale: 1.015 }}
+                whileTap={{ scale: 0.97, y: 0 }}
+                transition={{ type: "spring", stiffness: 320, damping: 20 }}
+                className="group relative px-7 py-4 bg-gradient-to-r from-[#1B8AA8] to-[#2FA6C4] text-white rounded-2xl font-semibold flex items-center justify-center gap-3 overflow-hidden shadow-xl shadow-[#1B8AA8]/25 hover:shadow-2xl hover:shadow-[#1B8AA8]/30 active:shadow-lg active:shadow-[#1B8AA8]/20 transition-all duration-300"
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-[#0E5F73] to-[#1B8AA8]"
@@ -458,25 +381,45 @@ export function HeroSection() {
                   whileHover={{ x: 0 }}
                   transition={{ duration: 0.4 }}
                 />
-                <Apple className="relative z-10 w-6 h-6" />
-                <span className="relative z-10">{t("hero.cta.appstore")}</span>
-              </motion.button>
 
-              <motion.button
-                whileHover={{
-                  scale: 1.02,
-                  y: -2,
-                  backgroundColor: "rgba(27, 138, 168, 0.05)",
-                }}
-                whileTap={{ scale: 0.98 }}
-                className="group relative px-7 py-4 bg-white text-[#1B8AA8] rounded-2xl font-semibold flex items-center justify-center gap-3 border-2 border-[#1B8AA8]/20 hover:border-[#1B8AA8]/40 transition-all duration-300 shadow-lg shadow-[#1B8AA8]/5"
+                <motion.div
+                  whileHover={{ rotate: -8, scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative z-10"
+                >
+                  <FaApple className="w-6 h-6" />
+                </motion.div>
+
+                <span className="relative z-10 text-[17px]">
+                  {t("hero.cta.appstore")}
+                </span>
+              </motion.a>
+
+              {/* Google Play */}
+              <motion.a
+                href="https://play.google.com/store/apps/details?id=com.amin.Patient&pli=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -3, scale: 1.015 }}
+                whileTap={{ scale: 0.97, y: 0 }}
+                transition={{ type: "spring", stiffness: 320, damping: 20 }}
+                className="group relative px-7 py-4 bg-white text-[#1B8AA8] rounded-2xl font-semibold flex items-center justify-center gap-3 border-2 border-[#1B8AA8]/20 hover:border-[#1B8AA8]/40 transition-all duration-300 shadow-lg shadow-[#1B8AA8]/5 hover:shadow-xl hover:shadow-[#1B8AA8]/10 active:shadow-md"
               >
-                <Play className="w-6 h-6 fill-[#1B8AA8]" />
-                <span>{t("hero.cta.playstore")}</span>
-              </motion.button>
+                <motion.div
+                  whileHover={{ rotate: 6, scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative z-10"
+                >
+                  <FaGooglePlay className="w-5 h-5" />
+                </motion.div>
+
+                <span className="relative z-10 text-[17px]">
+                  {t("hero.cta.playstore")}
+                </span>
+              </motion.a>
             </motion.div>
 
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -511,7 +454,7 @@ export function HeroSection() {
                   </div>
                 </motion.div>
               ))}
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* Desktop Phones */}
@@ -521,61 +464,46 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="relative h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px]"
           >
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[480px] h-[400px] md:h-[480px]">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] md:w-[400px] h-[340px] md:h-[400px]">
               <motion.div
-                animate={{
-                  scale: [1, 1.08, 1],
-                  opacity: [0.35, 0.55, 0.35],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute inset-0 bg-gradient-radial from-[#1B8AA8]/25 via-[#2FA6C4]/15 to-transparent rounded-full blur-3xl"
-              />
-              <motion.div
-                animate={{
-                  scale: [1.05, 1, 1.05],
-                  opacity: [0.25, 0.45, 0.25],
-                }}
+                animate={{ opacity: [0.18, 0.3, 0.18] }}
                 transition={{
                   duration: 6,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 0.5,
                 }}
-                className="absolute inset-12 bg-gradient-radial from-[#6FD1E6]/30 via-[#1B8AA8]/15 to-transparent rounded-full blur-2xl"
+                className="absolute inset-0 bg-gradient-radial from-[#1B8AA8]/18 via-[#2FA6C4]/10 to-transparent rounded-full blur-2xl"
               />
               <motion.div
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.2, 0.35, 0.2],
-                }}
+                animate={{ opacity: [0.14, 0.24, 0.14] }}
                 transition={{
                   duration: 7,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 1,
+                  delay: 0.5,
                 }}
-                className="absolute inset-20 bg-gradient-radial from-white/40 to-transparent rounded-full blur-xl"
+                className="absolute inset-10 bg-gradient-radial from-[#6FD1E6]/18 via-[#1B8AA8]/10 to-transparent rounded-full blur-xl"
               />
             </div>
 
             {/* Main */}
             <motion.div
               style={{ y: y1 }}
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              animate={{ y: [0, -6, 0] }}
+              transition={{
+                duration: 5.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
             >
               <motion.div
                 initial={{ rotateY: 0 }}
-                whileHover={{ rotateY: 5, scale: 1.02 }}
-                transition={{ duration: 0.5 }}
+                whileHover={{ rotateY: 4, scale: 1.015 }}
+                transition={{ duration: 0.4 }}
                 className="relative"
               >
-                <div className="w-[240px] sm:w-[260px] md:w-[280px] h-[490px] sm:h-[530px] md:h-[570px] bg-gradient-to-br from-[#1B8AA8] via-[#1B8AA8] to-[#0E5F73] rounded-[2.8rem] md:rounded-[3rem] p-2.5 md:p-3 shadow-2xl shadow-[#1B8AA8]/35">
+                <div className="w-[240px] sm:w-[260px] md:w-[280px] h-[490px] sm:h-[530px] md:h-[570px] bg-gradient-to-br from-[#1B8AA8] via-[#1B8AA8] to-[#0E5F73] rounded-[2.8rem] md:rounded-[3rem] p-2.5 md:p-3 shadow-2xl shadow-[#1B8AA8]/30">
                   <div className="w-full h-full bg-white rounded-[2.3rem] md:rounded-[2.5rem] overflow-hidden relative">
                     <div className="absolute top-0 left-0 right-0 h-7 md:h-8 bg-gradient-to-b from-[#1B8AA8] to-[#2FA6C4] flex items-center justify-center z-20">
                       <div className="w-16 md:w-20 h-4 md:h-5 bg-black/20 rounded-full" />
@@ -586,7 +514,6 @@ export function HeroSection() {
                         src="../../images/call.png"
                         alt="Seha Plus app home screen"
                         fill
-                        priority
                         className="object-cover object-top"
                       />
                     </div>
@@ -595,24 +522,16 @@ export function HeroSection() {
                   </div>
                 </div>
 
-                <motion.div
-                  animate={{ opacity: [0.35, 0.95, 0.35], scale: [1, 1.02, 1] }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute -inset-5 md:-inset-6 bg-gradient-to-br from-[#1B8AA8]/20 to-[#6FD1E6]/15 rounded-[3.5rem] md:rounded-[4rem] blur-2xl -z-10"
-                />
+                <div className="absolute -inset-4 md:-inset-5 bg-gradient-to-br from-[#1B8AA8]/12 to-[#6FD1E6]/10 rounded-[3.5rem] md:rounded-[4rem] blur-xl -z-10" />
               </motion.div>
             </motion.div>
 
             {/* Left */}
             <motion.div
               style={{ y: y2 }}
-              animate={{ y: [0, -12, 0] }}
+              animate={{ y: [0, -8, 0] }}
               transition={{
-                duration: 6,
+                duration: 6.2,
                 repeat: Infinity,
                 ease: "easeInOut",
                 delay: 0.5,
@@ -620,11 +539,11 @@ export function HeroSection() {
               className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 z-10"
             >
               <motion.div
-                whileHover={{ rotate: -4, scale: 1.02 }}
-                transition={{ duration: 0.4 }}
+                whileHover={{ rotate: -4, scale: 1.015 }}
+                transition={{ duration: 0.35 }}
                 className="relative"
               >
-                <div className="w-[180px] sm:w-[200px] md:w-[220px] h-[370px] sm:h-[410px] md:h-[450px] bg-gradient-to-br from-[#2FA6C4] to-[#1B8AA8] rounded-[2.2rem] md:rounded-[2.5rem] p-2 md:p-2.5 shadow-xl shadow-[#1B8AA8]/20 opacity-90 -rotate-6">
+                <div className="w-[180px] sm:w-[200px] md:w-[220px] h-[370px] sm:h-[410px] md:h-[450px] bg-gradient-to-br from-[#2FA6C4] to-[#1B8AA8] rounded-[2.2rem] md:rounded-[2.5rem] p-2 md:p-2.5 shadow-xl shadow-[#1B8AA8]/18 opacity-90 -rotate-6">
                   <div className="w-full h-full bg-white rounded-[1.8rem] md:rounded-[2rem] overflow-hidden relative">
                     <div className="relative w-full h-full">
                       <Image
@@ -634,29 +553,20 @@ export function HeroSection() {
                         className="object-cover object-top"
                       />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0E5F73]/[0.04] via-transparent to-white/[0.02] pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0E5F73]/[0.03] via-transparent to-white/[0.02] pointer-events-none" />
                   </div>
                 </div>
 
-                <motion.div
-                  animate={{ opacity: [0.25, 0.4, 0.25] }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                  className="absolute -inset-3 md:-inset-4 bg-gradient-to-br from-[#2FA6C4]/15 to-[#1B8AA8]/10 rounded-[2.8rem] md:rounded-[3rem] blur-xl -z-10"
-                />
+                <div className="absolute -inset-3 md:-inset-4 bg-gradient-to-br from-[#2FA6C4]/10 to-[#1B8AA8]/8 rounded-[2.8rem] md:rounded-[3rem] blur-lg -z-10" />
               </motion.div>
             </motion.div>
 
             {/* Right */}
             <motion.div
               style={{ y: y3 }}
-              animate={{ y: [0, -10, 0] }}
+              animate={{ y: [0, -7, 0] }}
               transition={{
-                duration: 5.5,
+                duration: 5.8,
                 repeat: Infinity,
                 ease: "easeInOut",
                 delay: 1,
@@ -664,11 +574,11 @@ export function HeroSection() {
               className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 z-10"
             >
               <motion.div
-                whileHover={{ rotate: 4, scale: 1.02 }}
-                transition={{ duration: 0.4 }}
+                whileHover={{ rotate: 4, scale: 1.015 }}
+                transition={{ duration: 0.35 }}
                 className="relative"
               >
-                <div className="w-[180px] sm:w-[200px] md:w-[220px] h-[370px] sm:h-[410px] md:h-[450px] bg-gradient-to-br from-[#6FD1E6] to-[#2FA6C4] rounded-[2.2rem] md:rounded-[2.5rem] p-2 md:p-2.5 shadow-xl shadow-[#2FA6C4]/20 opacity-90 rotate-6">
+                <div className="w-[180px] sm:w-[200px] md:w-[220px] h-[370px] sm:h-[410px] md:h-[450px] bg-gradient-to-br from-[#6FD1E6] to-[#2FA6C4] rounded-[2.2rem] md:rounded-[2.5rem] p-2 md:p-2.5 shadow-xl shadow-[#2FA6C4]/18 opacity-90 rotate-6">
                   <div className="w-full h-full bg-white rounded-[1.8rem] md:rounded-[2rem] overflow-hidden relative">
                     <div className="relative w-full h-full">
                       <Image
@@ -678,27 +588,18 @@ export function HeroSection() {
                         className="object-cover object-top"
                       />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0E5F73]/[0.04] via-transparent to-white/[0.02] pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0E5F73]/[0.03] via-transparent to-white/[0.02] pointer-events-none" />
                   </div>
                 </div>
 
-                <motion.div
-                  animate={{ opacity: [0.25, 0.4, 0.25] }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1.5,
-                  }}
-                  className="absolute -inset-3 md:-inset-4 bg-gradient-to-br from-[#6FD1E6]/15 to-[#2FA6C4]/10 rounded-[2.8rem] md:rounded-[3rem] blur-xl -z-10"
-                />
+                <div className="absolute -inset-3 md:-inset-4 bg-gradient-to-br from-[#6FD1E6]/10 to-[#2FA6C4]/8 rounded-[2.8rem] md:rounded-[3rem] blur-lg -z-10" />
               </motion.div>
             </motion.div>
           </motion.div>
         </div>
       </motion.div>
 
-      {/* MOBILE WRAPPER - no fade/opacity on scroll */}
+      {/* MOBILE */}
       <div className="relative z-10 md:hidden w-full px-5 py-10">
         <div className="flex flex-col items-center text-center">
           <motion.div
@@ -740,18 +641,38 @@ export function HeroSection() {
             transition={{ duration: 0.9, delay: 0.4 }}
             className="flex flex-col w-full gap-3 mb-8"
           >
-            <button className="group relative w-full px-6 py-4 bg-gradient-to-r from-[#1B8AA8] to-[#2FA6C4] text-white rounded-2xl font-semibold flex items-center justify-center gap-3 overflow-hidden shadow-xl shadow-[#1B8AA8]/20">
-              <Apple className="relative z-10 w-5 h-5" />
+            <motion.a
+              href="https://apps.apple.com/app/seha-plus/id6748379745"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ y: -2 }}
+              className="group relative w-full px-6 py-4 bg-gradient-to-r from-[#1B8AA8] to-[#2FA6C4] text-white rounded-2xl font-semibold flex items-center justify-center gap-3 overflow-hidden shadow-xl shadow-[#1B8AA8]/20"
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#0E5F73] to-[#1B8AA8]"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.35 }}
+              />
+              <FaApple className="relative z-10 w-5 h-5" />
               <span className="relative z-10">{t("hero.cta.appstore")}</span>
-            </button>
+            </motion.a>
 
-            <button className="w-full px-6 py-4 bg-white text-[#1B8AA8] rounded-2xl font-semibold flex items-center justify-center gap-3 border-2 border-[#1B8AA8]/15 shadow-md shadow-[#1B8AA8]/5">
-              <Play className="w-5 h-5 fill-[#1B8AA8]" />
+            <motion.a
+              href="https://play.google.com/store/apps/details?id=com.amin.Patient&pli=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ y: -2 }}
+              className="w-full px-6 py-4 bg-white text-[#1B8AA8] rounded-2xl font-semibold flex items-center justify-center gap-3 border-2 border-[#1B8AA8]/15 shadow-md shadow-[#1B8AA8]/5"
+            >
+              <FaGooglePlay className="w-5 h-5" />
               <span>{t("hero.cta.playstore")}</span>
-            </button>
+            </motion.a>
           </motion.div>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5 }}
@@ -780,7 +701,7 @@ export function HeroSection() {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </motion.div> */}
 
           {/* MOBILE 3 MOCKUPS */}
           <motion.div
@@ -791,12 +712,12 @@ export function HeroSection() {
           >
             {/* glow */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-[280px] h-[280px] rounded-full bg-gradient-radial from-[#1B8AA8]/20 via-[#2FA6C4]/10 to-transparent blur-3xl" />
+              <div className="w-[240px] h-[240px] rounded-full bg-gradient-radial from-[#1B8AA8]/14 via-[#2FA6C4]/8 to-transparent blur-2xl" />
             </div>
 
             {/* left */}
             <motion.div
-              animate={{ y: [0, -8, 0] }}
+              animate={{ y: [0, -5, 0] }}
               transition={{
                 duration: 5.5,
                 repeat: Infinity,
@@ -810,15 +731,15 @@ export function HeroSection() {
                   src="../../images/seha-home-screen.png"
                   alt="Seha Plus home"
                   className="w-[145px] h-[295px]"
-                  frameClassName="bg-gradient-to-br from-[#2FA6C4] to-[#1B8AA8] shadow-xl shadow-[#1B8AA8]/20"
-                  glowClassName="bg-gradient-to-br from-[#2FA6C4]/15 to-[#1B8AA8]/10"
+                  frameClassName="bg-gradient-to-br from-[#2FA6C4] to-[#1B8AA8] shadow-xl shadow-[#1B8AA8]/16"
+                  glowClassName="bg-gradient-to-br from-[#2FA6C4]/10 to-[#1B8AA8]/8"
                 />
               </div>
             </motion.div>
 
             {/* main */}
             <motion.div
-              animate={{ y: [0, -10, 0] }}
+              animate={{ y: [0, -7, 0] }}
               transition={{
                 duration: 4.8,
                 repeat: Infinity,
@@ -830,14 +751,14 @@ export function HeroSection() {
                 src="../../images/call.png"
                 alt="Seha Plus call screen"
                 className="w-[180px] h-[365px]"
-                frameClassName="bg-gradient-to-br from-[#1B8AA8] via-[#1B8AA8] to-[#0E5F73] shadow-2xl shadow-[#1B8AA8]/30"
-                glowClassName="bg-gradient-to-br from-[#1B8AA8]/20 to-[#6FD1E6]/15"
+                frameClassName="bg-gradient-to-br from-[#1B8AA8] via-[#1B8AA8] to-[#0E5F73] shadow-2xl shadow-[#1B8AA8]/24"
+                glowClassName="bg-gradient-to-br from-[#1B8AA8]/12 to-[#6FD1E6]/10"
               />
             </motion.div>
 
             {/* right */}
             <motion.div
-              animate={{ y: [0, -7, 0] }}
+              animate={{ y: [0, -5, 0] }}
               transition={{
                 duration: 5.8,
                 repeat: Infinity,
@@ -851,8 +772,8 @@ export function HeroSection() {
                   src="../../images/seha-dr-screen.png"
                   alt="Seha Plus doctor screen"
                   className="w-[145px] h-[295px]"
-                  frameClassName="bg-gradient-to-br from-[#6FD1E6] to-[#2FA6C4] shadow-xl shadow-[#2FA6C4]/20"
-                  glowClassName="bg-gradient-to-br from-[#6FD1E6]/15 to-[#2FA6C4]/10"
+                  frameClassName="bg-gradient-to-br from-[#6FD1E6] to-[#2FA6C4] shadow-xl shadow-[#2FA6C4]/16"
+                  glowClassName="bg-gradient-to-br from-[#6FD1E6]/10 to-[#2FA6C4]/8"
                 />
               </div>
             </motion.div>

@@ -22,12 +22,12 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const navItems = [
-    { key: "nav.home", href: "#home" },
-    { key: "nav.features", href: "#features" },
-    { key: "nav.doctors", href: "#doctors" },
-    { key: "nav.download", href: "#download" },
-  ]
+const navItems = [
+  { key: "nav.home", href: "#home" },
+    { key: "nav.doctors", href: "#app-experience" },
+  { key: "nav.features", href: "#features" },
+  { key: "nav.download", href: "#download" },
+]
 
   return (
     <motion.header

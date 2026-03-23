@@ -1,14 +1,20 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from "react";
 
-type Language = "en" | "ar"
+type Language = "en" | "ar";
 
 interface LanguageContextType {
-  language: Language
-  setLanguage: (lang: Language) => void
-  t: (key: string) => string
-  dir: "ltr" | "rtl"
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
+  dir: "ltr" | "rtl";
 }
 
 const translations = {
@@ -16,57 +22,63 @@ const translations = {
     // Header
     "nav.home": "Home",
     "nav.features": "Features",
-    "nav.doctors": "Doctors",
+    "nav.doctors": "Experience",
     "nav.download": "Download",
-    
+
     // Hero
-    "hero.title": "Your Doctor Is Closer Than Ever",
-    "hero.subtitle": "Experience healthcare reimagined. Connect with certified doctors instantly through video consultations, book appointments, and manage your health—all from the comfort of your home.",
+    "hero.title": "No Waiting. No Complexity.",
+    "hero.subtitle":
+      "Book appointments, connect with doctors, and manage your health easily — all in one place.",
     "hero.cta.appstore": "Download on App Store",
     "hero.cta.playstore": "Get it on Google Play",
-    
+
     // App Experience
-    "experience.title": "A New Era of Healthcare",
-    "experience.subtitle": "Seamlessly navigate through our intuitive interface designed for your health journey",
+    "experience.title": "Simple & Clear Experience",
+    "experience.subtitle":
+      "A smooth interface designed to help you manage your healthcare without complexity",
     "experience.video.title": "Video Consultation",
-    "experience.video.desc": "Face-to-face consultations with certified doctors from anywhere",
-    "experience.doctors.title": "Browse Doctors",
-    "experience.doctors.desc": "Find the right specialist from our network of expert physicians",
-    "experience.specialties.title": "Medical Specialties",
-    "experience.specialties.desc": "Access a wide range of medical specializations",
+    "experience.video.desc": "Talk to your doctor through secure video calls",
+    "experience.doctors.title": "Find Doctors",
+    "experience.doctors.desc": "Browse doctors by specialty and availability",
+    "experience.specialties.title": "Specialties",
+    "experience.specialties.desc":
+      "Access different medical fields in one place",
     "experience.booking.title": "Easy Booking",
-    "experience.booking.desc": "Schedule appointments with just a few taps",
-    "experience.notifications.title": "Smart Notifications",
-    "experience.notifications.desc": "Never miss an appointment with intelligent reminders",
-    
+    "experience.booking.desc": "Schedule appointments quickly without hassle",
+    "experience.notifications.title": "Reminders",
+    "experience.notifications.desc":
+      "Get notified about your appointments and updates",
+
     // Features
-    "features.title": "Premium Healthcare Features",
-    "features.subtitle": "Everything you need for comprehensive health management",
-    "features.video.title": "HD Video Consultations",
-    "features.video.desc": "Crystal-clear video calls with your doctor, secured with end-to-end encryption for your privacy",
-    "features.booking.title": "Instant Appointment Booking",
-    "features.booking.desc": "Book appointments 24/7 with our smart scheduling system that finds the perfect time for you",
-    "features.discovery.title": "Doctor Discovery",
-    "features.discovery.desc": "Browse through verified profiles, ratings, and reviews to find your ideal healthcare provider",
-    "features.services.title": "Health Services",
-    "features.services.desc": "Access lab results, prescriptions, medical records, and health tracking all in one place",
-    "features.notifications.title": "Smart Notifications",
-    "features.notifications.desc": "Personalized reminders for medications, follow-ups, and health check-ups",
-    "features.security.title": "Bank-Level Security",
-    "features.security.desc": "Your health data is protected with enterprise-grade encryption and HIPAA-compliant security protocols",
-    
+    "features.title": "Core Features",
+    "features.subtitle": "Everything you need to manage your healthcare",
+    "features.video.title": "Video Calls",
+    "features.video.desc": "Secure and stable video consultations with doctors",
+    "features.booking.title": "Appointment Booking",
+    "features.booking.desc": "Book and manage appointments anytime",
+    "features.discovery.title": "Doctor Profiles",
+    "features.discovery.desc":
+      "View doctor details, specialties, and availability",
+    "features.services.title": "Health Records",
+    "features.services.desc":
+      "Access your medical data, prescriptions, and reports",
+    "features.notifications.title": "Notifications",
+    "features.notifications.desc": "Stay updated with reminders and alerts",
+    "features.security.title": "Data Protection",
+    "features.security.desc": "Your data is securely stored and protected",
+
     // Doctors
-    "doctors.title": "Meet Our Expert Doctors",
-    "doctors.subtitle": "World-class physicians dedicated to your health and wellbeing",
-    
+    "doctors.title": "Our Doctors",
+    "doctors.subtitle": "Qualified doctors available to support your needs",
+
     // Download
-    "download.title": "Start Your Health Journey Today",
-    "download.subtitle": "Join thousands of patients who have transformed their healthcare experience with Seha Plus",
-    
+    "download.title": "Get Started Today",
+    "download.subtitle": "Download the app and manage your healthcare easily",
+
     // Footer
-    "footer.tagline": "Your trusted partner in digital healthcare",
+    "footer.tagline": "Digital healthcare, simplified",
     "footer.company": "Company",
-    "footer.about": "About Us",
+    "footer.about": "About",
     "footer.careers": "Careers",
     "footer.press": "Press",
     "footer.legal": "Legal",
@@ -74,62 +86,64 @@ const translations = {
     "footer.terms": "Terms of Service",
     "footer.contact": "Contact",
     "footer.support": "Support",
-    "footer.email": "Email Us",
+    "footer.email": "Email",
     "footer.rights": "All rights reserved.",
   },
+
   ar: {
     // Header
     "nav.home": "الرئيسية",
     "nav.features": "المميزات",
-    "nav.doctors": "الأطباء",
+    "nav.doctors": "التجربة",
     "nav.download": "تحميل",
-    
+
     // Hero
-    "hero.title": "طبيبك أصبح أقرب من أي وقت",
-    "hero.subtitle": "اختبر رعاية صحية مُعاد تصورها. تواصل مع أطباء معتمدين فورياً عبر استشارات الفيديو، احجز مواعيدك، وأدر صحتك—كل ذلك من راحة منزلك.",
+    "hero.title": "بدون انتظار، بدون تعقيد",
+    "hero.subtitle":
+      "احجز مواعيدك، تواصل مع الأطباء، وادِر صحتك بسهولة من مكان واحد.",
     "hero.cta.appstore": "تحميل من App Store",
     "hero.cta.playstore": "تحميل من Google Play",
-    
+
     // App Experience
-    "experience.title": "عصر جديد من الرعاية الصحية",
-    "experience.subtitle": "تنقل بسلاسة عبر واجهتنا البديهية المصممة لرحلتك الصحية",
+    "experience.title": "تجربة بسيطة وواضحة",
+    "experience.subtitle": "واجهة سهلة تساعدك على إدارة صحتك بدون تعقيد",
     "experience.video.title": "استشارة بالفيديو",
-    "experience.video.desc": "استشارات وجهاً لوجه مع أطباء معتمدين من أي مكان",
-    "experience.doctors.title": "تصفح الأطباء",
-    "experience.doctors.desc": "اعثر على الأخصائي المناسب من شبكتنا من الأطباء الخبراء",
-    "experience.specialties.title": "التخصصات الطبية",
-    "experience.specialties.desc": "الوصول إلى مجموعة واسعة من التخصصات الطبية",
-    "experience.booking.title": "حجز سهل",
-    "experience.booking.desc": "جدولة المواعيد بنقرات قليلة فقط",
-    "experience.notifications.title": "إشعارات ذكية",
-    "experience.notifications.desc": "لا تفوت أي موعد مع التذكيرات الذكية",
-    
+    "experience.video.desc": "تحدث مع طبيبك عبر مكالمات فيديو آمنة",
+    "experience.doctors.title": "البحث عن أطباء",
+    "experience.doctors.desc": "تصفح الأطباء حسب التخصص والتوفر",
+    "experience.specialties.title": "التخصصات",
+    "experience.specialties.desc": "الوصول إلى مختلف التخصصات الطبية",
+    "experience.booking.title": "حجز المواعيد",
+    "experience.booking.desc": "احجز مواعيدك بسرعة وسهولة",
+    "experience.notifications.title": "التنبيهات",
+    "experience.notifications.desc": "استقبل إشعارات بمواعيدك والتحديثات",
+
     // Features
-    "features.title": "مميزات الرعاية الصحية المتميزة",
-    "features.subtitle": "كل ما تحتاجه لإدارة صحية شاملة",
-    "features.video.title": "استشارات فيديو عالية الدقة",
-    "features.video.desc": "مكالمات فيديو واضحة مع طبيبك، مؤمنة بتشفير من طرف إلى طرف لخصوصيتك",
-    "features.booking.title": "حجز مواعيد فوري",
-    "features.booking.desc": "احجز مواعيد على مدار الساعة مع نظام الجدولة الذكي الذي يجد الوقت المثالي لك",
-    "features.discovery.title": "اكتشاف الأطباء",
-    "features.discovery.desc": "تصفح الملفات الشخصية الموثقة والتقييمات والمراجعات للعثور على مقدم الرعاية الصحية المثالي",
-    "features.services.title": "الخدمات الصحية",
-    "features.services.desc": "الوصول إلى نتائج المختبر والوصفات الطبية والسجلات الطبية وتتبع الصحة في مكان واحد",
-    "features.notifications.title": "إشعارات ذكية",
-    "features.notifications.desc": "تذكيرات مخصصة للأدوية والمتابعات والفحوصات الصحية",
-    "features.security.title": "أمان بمستوى البنوك",
-    "features.security.desc": "بياناتك الصحية محمية بتشفير على مستوى المؤسسات وبروتوكولات أمان متوافقة مع HIPAA",
-    
+    "features.title": "المميزات الأساسية",
+    "features.subtitle": "كل ما تحتاجه لإدارة صحتك",
+    "features.video.title": "مكالمات فيديو",
+    "features.video.desc": "استشارات فيديو آمنة ومستقرة مع الأطباء",
+    "features.booking.title": "حجز المواعيد",
+    "features.booking.desc": "إدارة المواعيد في أي وقت",
+    "features.discovery.title": "ملفات الأطباء",
+    "features.discovery.desc": "عرض معلومات الأطباء وتخصصاتهم",
+    "features.services.title": "السجلات الصحية",
+    "features.services.desc": "الوصول إلى بياناتك الطبية والوصفات",
+    "features.notifications.title": "الإشعارات",
+    "features.notifications.desc": "تنبيهات للمواعيد والتحديثات",
+    "features.security.title": "حماية البيانات",
+    "features.security.desc": "بياناتك محفوظة وآمنة",
+
     // Doctors
-    "doctors.title": "تعرف على أطبائنا الخبراء",
-    "doctors.subtitle": "أطباء عالميون مكرسون لصحتك ورفاهيتك",
-    
+    "doctors.title": "الأطباء",
+    "doctors.subtitle": "أطباء مؤهلون لمساعدتك",
+
     // Download
-    "download.title": "ابدأ رحلتك الصحية الآن",
-    "download.subtitle": "انضم إلى آلاف المرضى الذين غيروا تجربتهم في الرعاية الصحية مع صحة بلس",
-    
+    "download.title": "ابدأ الآن",
+    "download.subtitle": "حمّل التطبيق وابدأ بإدارة صحتك بسهولة",
+
     // Footer
-    "footer.tagline": "شريكك الموثوق في الرعاية الصحية الرقمية",
+    "footer.tagline": "رعاية صحية رقمية بشكل بسيط",
     "footer.company": "الشركة",
     "footer.about": "من نحن",
     "footer.careers": "الوظائف",
@@ -137,40 +151,41 @@ const translations = {
     "footer.legal": "قانوني",
     "footer.privacy": "سياسة الخصوصية",
     "footer.terms": "شروط الخدمة",
-    "footer.contact": "التواصل",
+    "footer.contact": "تواصل",
     "footer.support": "الدعم",
-    "footer.email": "راسلنا",
-    "footer.rights": "جميع الحقوق محفوظة.",
+    "footer.email": "البريد",
+    "footer.rights": "جميع الحقوق محفوظة",
   },
-}
-
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
+};
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined,
+);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("ar")
+  const [language, setLanguage] = useState<Language>("ar");
 
   useEffect(() => {
-    document.documentElement.dir = language === "ar" ? "rtl" : "ltr"
-    document.documentElement.lang = language
-  }, [language])
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = language;
+  }, [language]);
 
   const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations.en] || key
-  }
+    return translations[language][key as keyof typeof translations.en] || key;
+  };
 
-  const dir = language === "ar" ? "rtl" : "ltr"
+  const dir = language === "ar" ? "rtl" : "ltr";
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t, dir }}>
       {children}
     </LanguageContext.Provider>
-  )
+  );
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext)
+  const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error("useLanguage must be used within a LanguageProvider")
+    throw new Error("useLanguage must be used within a LanguageProvider");
   }
-  return context
+  return context;
 }
